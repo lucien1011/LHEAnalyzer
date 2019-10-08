@@ -1,4 +1,7 @@
 #!/bin/bash
 
-#root -l -q ZZD_lhe.C\(\"/home/rosedj1/DarkZ-EvtGeneration/CMSSW_9_4_2/src/DarkZ-EvtGeneration/workDir_ppTOzzp_nohh2_eps5e-2_mZd20/UnpackTarball/cmsgrid_final_ppTOzzp_nohh2.lhe\",10000\)
-root -l -q ZZD_lhe.C\(\"cmsgrid_final_ppTOzzp_nohh2.lhe\",10000\)
+baseInputDir=/home/lucien/AnalysisCode/Higgs/ALP/genproductions/bin/MadGraph5_aMCatNLO/workDir_acc_study_hTOalpalp_eps2e-2_mZd
+for m in 4 7 15 20 25 30 33 ; 
+do
+    root -l -q ZZD_lhe.C\(\"${baseInputDir}${m}/UnpackTarball/cmsgrid_final.lhe\",\"${baseInputDir}${m}/UnpackTarball/cmsgrid_final_lhe.root\",10000\) ; 
+done

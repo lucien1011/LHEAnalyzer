@@ -28,7 +28,7 @@ const int LEPSIZE = 4;
 const double PI = 3.1415926;
 const double mZ_PDG = 91.188;//GeV
 
-void ZZD_lhe(TString powhegLheFile = "cmsgrid_final.lhe", long int Nevents = 10000, bool bApplyCuts = true, unsigned int kDebugLevel = 1) {
+void ZZD_lhe(TString powhegLheFile = "cmsgrid_final.lhe", TString outputFile = "cmsgrid_final.root", long int Nevents = 10000, bool bApplyCuts = true, unsigned int kDebugLevel = 1) {
 // define input
     ifstream in;
     in.open(powhegLheFile.Data(),ios::in);
@@ -41,22 +41,7 @@ void ZZD_lhe(TString powhegLheFile = "cmsgrid_final.lhe", long int Nevents = 100
     int zdmass = 20;
     int lhaid = 306000;
 
-    strtemp.assign(powhegLheFile.Data());
-    strtemp.append("MZd");
-    strtemp.append(std::to_string(zdmass));
-    strtemp.append("_");
-    strtemp.append(std::to_string(Nevents));
-    strtemp.append("events_");
-    strtemp.append("lhaid");
-    strtemp.append(std::to_string(lhaid));
-    strtemp.append("_");
-    if (bApplyCuts == true) {
-        strtemp.append("WITH"); 
-    }
-    else {
-        strtemp.append("WITHOUT");
-    }
-    strtemp.append("cuts.root");
+    strtemp.assign(outputFile.Data());
     std::cout<<" preparing root file: "<<strtemp.c_str()<<" \n";
     std::cout<<" running for: "<<Nevents<<" events.\n";
 
