@@ -24,7 +24,7 @@ inputFilePath1  = "/home/lucien/AnalysisCode/Higgs/ALP/genproductions/bin/MadGra
 inputFilePath2  = "/home/lucien/AnalysisCode/Higgs/ALP/genproductions/bin/MadGraph5_aMCatNLO/workDir_acc_study_hTOalpalpTOmumu_eps2e-2_mZd15/UnpackTarball/cmsgrid_final_lhe.root"
 mass            = "15"
 mass_int        = int(mass)
-outPlotDir      = "/home/lucien/public_html/Higgs/ALP/KinematicStudy/2019-10-09_hToXX/"
+outPlotDir      = "/home/lucien/public_html/Higgs/ALP/KinematicStudy/2019-10-09_hToXX_mX"+mass+"/"
 kinemlist       = [
                     "mass4l",
                     "eta3","eta4","eta5","eta6","phi3","phi4","phi5","phi6",
@@ -34,9 +34,9 @@ kinemlist       = [
                     ]
 extratitle      = ""
 plotlist        = [
-    BaseObject("mass4l",xmin=100.0,xmax=170.0,binwidth=0.5,xlabel="m_{4l} [GeV]",ylabel=str("%.5f" % 0.5)+" [GeV]",xminrange=100.0,xmaxrange=170.0,ymaxrange=0.6),
-    BaseObject("massZ1",xmin=4.0,xmax=62.5,binwidth=0.5,xlabel="m_{Z1} [GeV]",ylabel=str("%.5f" % 0.5)+" [GeV]",xminrange=4.0,xmaxrange=62.5,ymaxrange=0.6),
-    BaseObject("massZ2",xmin=4.0,xmax=62.5,binwidth=0.5,xlabel="m_{Z2} [GeV]",ylabel=str("%.5f" % 0.5)+" [GeV]",xminrange=4.0,xmaxrange=62.5,ymaxrange=0.6),
+    BaseObject("mass4l",xmin=124.0,xmax=126.0,binwidth=0.02,xlabel="m_{4l} [GeV]",ylabel=str("%.5f" % 0.5)+" [GeV]",xminrange=100.0,xmaxrange=170.0,ymaxrange=0.6),
+    BaseObject("massZ1",xmin=4.0,xmax=62.5,binwidth=1,xlabel="m_{Z1} [GeV]",ylabel=str("%.5f" % 0.5)+" [GeV]",xminrange=4.0,xmaxrange=62.5,ymaxrange=0.6),
+    BaseObject("massZ2",xmin=4.0,xmax=62.5,binwidth=1,xlabel="m_{Z2} [GeV]",ylabel=str("%.5f" % 0.5)+" [GeV]",xminrange=4.0,xmaxrange=62.5,ymaxrange=0.6),
     BaseObject("eta3",xmin=-2.8,xmax=2.8,binwidth=0.2,xlabel="#eta_{3}",ylabel=str("%.5f" % 0.2),xminrange=-2.8,xmaxrange=2.8,ymaxrange=0.07),
     BaseObject("eta4",xmin=-2.8,xmax=2.8,binwidth=0.2,xlabel="#eta_{4}",ylabel=str("%.5f" % 0.2),xminrange=-2.8,xmaxrange=2.8,ymaxrange=0.07),
     BaseObject("eta5",xmin=-2.8,xmax=2.8,binwidth=0.2,xlabel="#eta_{5}",ylabel=str("%.5f" % 0.2),xminrange=-2.8,xmaxrange=2.8,ymaxrange=0.07),
@@ -107,7 +107,7 @@ for p in plotlist:
     h1.SetAxisRange(0, ymaxrange, "Y")
     h2.SetLineWidth(3)
     h2.SetLineColor(ROOT.kRed)                                
-    h2.SetTitle("pp #rightarrow H #rightarrow XX #rightarrow 4l, mZ_{d} = %d GeV%s" % (mass_int, extratitle))
+    h2.SetTitle("pp #rightarrow H #rightarrow XX #rightarrow 4l, m_{X} = %d GeV%s" % (mass_int, extratitle))
     h2.SetXTitle("%s" % xlabel)
     h2.SetYTitle("Fraction of Events / %s" % ylabel )
     h2.SetLabelSize(0.025, "XY")

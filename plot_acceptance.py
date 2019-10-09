@@ -52,7 +52,7 @@ treeName    = "lheEvents_tchan"
 histName    = "acc"
 n_tot_evts  = 10000.
 outputPath  = "/home/lucien/public_html/Higgs/ALP/AcceptanceStudy/2019-10-09_hToXX/plot.pdf"
-y_range     = [0.,0.1]
+y_range     = [0.,1.]
 
 # ________________________________________________________________________________________________________________________ ||
 mkdir_p(os.path.dirname(outputPath))

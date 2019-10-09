@@ -212,20 +212,23 @@ void ZDZD_lhe(TString powhegLheFile = "cmsgrid_final.lhe", TString outputFile = 
             } else if (sumAbsId==44 || sumAbsId==52){// for 4e or 4mu
               TLorentzVector tmpZ3 = (L11P4 + L22P4);
               TLorentzVector tmpZ4 = (L21P4 + L12P4);
-              double min_dM = min(min(fabs(tmpZ1.M()-mZ_PDG),fabs(tmpZ2.M()-mZ_PDG)),min(fabs(tmpZ3.M()-mZ_PDG),fabs(tmpZ4.M()-mZ_PDG)));
-              Z1 = tmpZ1; Z2 = tmpZ2;
-              mela::computeAngles(L11P4, idL1, L12P4, idL2, L21P4, idL3, L22P4, idL4, _costhetastar,_costheta1,_costheta2,_phi,_phi1);
-              if (fabs(tmpZ2.M()-mZ_PDG)<=min_dM){
-                  Z2 = tmpZ1; Z1 = tmpZ2;
-                  mela::computeAngles(L21P4, idL3, L22P4, idL4, L11P4, idL1, L12P4, idL2, _costhetastar,_costheta1,_costheta2,_phi,_phi1);
-              }
-              if (fabs(tmpZ3.M()-mZ_PDG)<=min_dM){
-                  Z1 = tmpZ3; Z2 = tmpZ4;
-                  mela::computeAngles(L11P4, idL1, L22P4, idL4, L21P4, idL3, L12P4, idL2, _costhetastar,_costheta1,_costheta2,_phi,_phi1);
-              }
-              if (fabs(tmpZ4.M()-mZ_PDG)<=min_dM){
-                  Z2 = tmpZ3; Z1 = tmpZ4;
-                  mela::computeAngles(L21P4, idL3, L12P4, idL2, L11P4, idL1, L22P4, idL4, _costhetastar,_costheta1,_costheta2,_phi,_phi1);
+              double min_dM = min(fabs(tmpZ1.M()-tmpZ2.M())/(tmpZ1.M()+tmpZ2.M()),fabs(tmpZ3.M()-tmpZ4.M())/(tmpZ3.M()+tmpZ4.M()));
+              if (fabs(tmpZ1.M()-tmpZ2.M())/(tmpZ1.M()+tmpZ2.M())<fabs(tmpZ3.M()-tmpZ4.M())/(tmpZ3.M()+tmpZ4.M())) {
+                  if (tmpZ1.M()>tmpZ2.M()){
+                      Z1 = tmpZ1; Z2 = tmpZ2;
+                      mela::computeAngles(L11P4, idL1, L12P4, idL2, L21P4, idL3, L22P4, idL4, _costhetastar,_costheta1,_costheta2,_phi,_phi1);
+                  } else {
+                      Z1 = tmpZ2; Z2 = tmpZ1;
+                      mela::computeAngles(L21P4, idL3, L22P4, idL4, L11P4, idL1, L12P4, idL2, _costhetastar,_costheta1,_costheta2,_phi,_phi1);
+                  }
+              } else {
+                  if (tmpZ3.M()>tmpZ4.M()){
+                      Z1 = tmpZ3; Z2 = tmpZ4;
+                      mela::computeAngles(L11P4, idL1, L22P4, idL4, L21P4, idL3, L12P4, idL2, _costhetastar,_costheta1,_costheta2,_phi,_phi1);
+                  } else {
+                      Z1 = tmpZ4; Z2 = tmpZ3;
+                      mela::computeAngles(L21P4, idL3, L12P4, idL2, L11P4, idL1, L22P4, idL4, _costhetastar,_costheta1,_costheta2,_phi,_phi1);
+                  }
               }
             } else {
               cout << "WARNING: problem in the type of the final state!" << endl;
