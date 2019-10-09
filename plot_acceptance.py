@@ -37,7 +37,16 @@ hist_cfgs = [
                             for m in [4,7,15,20,25,30,33,] ],
                     color = ROOT.kBlue,
                     ),
-
+                BaseObject(
+                    "Zd_MuMu",
+                    cfgs=[ BaseObject(
+                            "H-To-Zd-Zd_M"+str(m),
+                            inputPath="/home/lucien/AnalysisCode/Higgs/ALP/genproductions/bin/MadGraph5_aMCatNLO/workDir_acc_study_hTOzpzpTO4mu_eps2e-2_mZd%s/UnpackTarball/cmsgrid_final_lhe.root"%str(m),
+                            x_label = str(m)+ "GeV",
+                            ) 
+                            for m in [4,7,15,20,25,30,33,] ],
+                    color = ROOT.kViolet,
+                    ),
                 ]
 treeName    = "lheEvents_tchan"
 histName    = "acc"
