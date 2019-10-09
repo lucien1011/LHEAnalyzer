@@ -48,8 +48,10 @@ y_range     = [0.,0.1]
 # ________________________________________________________________________________________________________________________ ||
 mkdir_p(os.path.dirname(outputPath))
 c = ROOT.TCanvas()
+leg = ROOT.TLegend(0.70,0.65,0.89,0.87)
 for i,hist_cfg in enumerate(hist_cfgs):
     hist_cfg.hist = ROOT.TH1D(hist_cfg.name,"",len(hist_cfg.cfgs),-0.5,len(hist_cfg.cfgs)-0.5)
+    leg.AddEntry(hist_cfg.hist,hist_cfg.name,"l")
     for ibin,cfg in enumerate(hist_cfg.cfgs):
         f = ROOT.TFile(cfg.inputPath,"READ")
         t = f.Get(treeName)
@@ -65,4 +67,5 @@ for i,hist_cfg in enumerate(hist_cfgs):
         hist_cfg.hist.Draw()
     else:
         hist_cfg.hist.Draw("same")
+leg.Draw("same")
 c.SaveAs(outputPath)
