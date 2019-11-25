@@ -18,12 +18,17 @@ from BaseObject import BaseObject
 gROOT.SetBatch(kTRUE) #kTRUE = will NOT draw plots to the screen!
 setTDRStyle()                                             
 
-mass            = "30"
+mass            = "7"
+width           = str(float(mass)*0.02)
 inputFilePath1  = "/home/lucien/AnalysisCode/Higgs/ALP/genproductions/bin/MadGraph5_aMCatNLO/workDir_acc_study_hTOzpzpTO4mu_eps2e-2_mZd"+mass+"/UnpackTarball/cmsgrid_final_lhe.root"
 inputFilePath2  = "/home/lucien/AnalysisCode/Higgs/ALP/genproductions/bin/MadGraph5_aMCatNLO/workDir_acc_study_hTOalpalpTOmumu_eps2e-2_mZd"+mass+"/UnpackTarball/cmsgrid_final_lhe.root"
 mass_int        = int(mass)
 mass_float      = float(mass)
-outPlotDir      = "/home/lucien/public_html/Higgs/ALP/KinematicStudy/2019-10-09_hToXX_mX"+mass+"/"
+window_up       = mass_float+float(width)
+window_down     = mass_float-float(width)
+selection       = "(massZ2 > %s) && (massZ2 < %s)"%(window_down,window_up)
+#outPlotDir      = "/home/lucien/public_html/Higgs/ALP/KinematicStudy/2019-10-09_hToXX_mX"+mass+"/"
+outPlotDir      = "/home/lucien/public_html/Higgs/ALP/KinematicStudy/2019-11-25_hToXX_mX"+mass+"/"
 kinemlist       = [
                     "mass4l",
                     "eta3","eta4","eta5","eta6","phi3","phi4","phi5","phi6",
@@ -55,7 +60,6 @@ plotlist        = [
     BaseObject("phi1",xmin=-np.pi,xmax=np.pi,binwidth=np.pi/20,xlabel="#phi_{1}"+" [radians]",ylabel=str("%.5f" % (np.pi/20))+" [radians]",xminrange=-3.5,xmaxrange=3.5,ymaxrange=0.04),
     ]
 
-
 mkdir_p(outPlotDir)
 if extratitle != "": 
     extratitle = ", " + extratitle
@@ -82,8 +86,8 @@ for p in plotlist:
 
     c1 = TCanvas("c_mZd%s_%s" % (mass,kinem),"c_mZd%s_%s" % (mass,kinem),800,800)
     c1.cd()                                                   
-    t1.Draw("%s>>h1_mZd%s_%s" % (kinem,mass,kinem), "", "goff")
-    t2.Draw("%s>>h2_mZd%s_%s" % (kinem,mass,kinem), "", "goff")
+    t1.Draw("%s>>h1_mZd%s_%s" % (kinem,mass,kinem), selection, "goff")
+    t2.Draw("%s>>h2_mZd%s_%s" % (kinem,mass,kinem), selection, "goff")
     if h1.Integral() != 0: 
         #print("Scaling "+kinem)
         h1.Scale(1./h1.Integral())
