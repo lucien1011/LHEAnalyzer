@@ -18,17 +18,18 @@ from BaseObject import BaseObject
 gROOT.SetBatch(kTRUE) #kTRUE = will NOT draw plots to the screen!
 setTDRStyle()                                             
 
-mass            = "15"
+mass            = "20"
 width           = str(float(mass)*0.02)
-inputFilePath1  = "/home/lucien/AnalysisCode/Higgs/ALP/genproductions/bin/MadGraph5_aMCatNLO/workDir_acc_study_hTOzpzpTO4mu_eps2e-2_mZd"+mass+"/UnpackTarball/cmsgrid_final_lhe.root"
-inputFilePath2  = "/home/lucien/AnalysisCode/Higgs/ALP/genproductions/bin/MadGraph5_aMCatNLO/workDir_acc_study_hTOalpalpTOmumu_eps2e-2_mZd"+mass+"/UnpackTarball/cmsgrid_final_lhe.root"
+inputFilePath1  = "/home/lucien/AnalysisCode/Higgs/ALP/genproductions/bin/MadGraph5_aMCatNLO/workDir_acc_study_hTOzalpTO4mu_eps2e-2_mZd"+mass+"/UnpackTarball/cmsgrid_final_lhe.root"
+inputFilePath2  = "/home/lucien/AnalysisCode/Higgs/ALP/genproductions/bin/MadGraph5_aMCatNLO/workDir_acc_study_hTOzzpTO4mu_eps2e-2_mZd"+mass+"/UnpackTarball/cmsgrid_final_lhe.root"
 mass_int        = int(mass)
 mass_float      = float(mass)
 window_up       = mass_float+float(width)
 window_down     = mass_float-float(width)
 selection       = "(massZ2 > %s) && (massZ2 < %s)"%(window_down,window_up)
 #outPlotDir      = "/home/lucien/public_html/Higgs/ALP/KinematicStudy/2019-10-09_hToXX_mX"+mass+"/"
-outPlotDir      = "/home/lucien/public_html/Higgs/ALP/KinematicStudy/2019-11-25_hToXX_mX"+mass+"/"
+#outPlotDir      = "/home/lucien/public_html/Higgs/ALP/KinematicStudy/2019-11-25_hToXX_mX"+mass+"/"
+outPlotDir      = "/home/lucien/public_html/Higgs/ALP/KinematicStudy/2019-11-26_hToZX_mX"+mass+"/"
 kinemlist       = [
                     "mass4l",
                     "eta3","eta4","eta5","eta6","phi3","phi4","phi5","phi6",
@@ -40,7 +41,7 @@ titleTemplate   = "pp #rightarrow H #rightarrow ZX #rightarrow 4l, mZ_{d} = %d G
 extratitle      = ""
 plotlist        = [
     BaseObject("mass4l",xmin=124.0,xmax=126.0,binwidth=0.02,xlabel="m_{4l} [GeV]",ylabel=str("%.5f" % 0.5)+" [GeV]",xminrange=100.0,xmaxrange=170.0,ymaxrange=0.6),
-    BaseObject("massZ1",xmin=mass_float-1.,xmax=mass_float+1.,binwidth=0.02,xlabel="m_{Z1} [GeV]",ylabel=str("%.5f" % 0.5)+" [GeV]",xminrange=mass_float-1.,xmaxrange=mass_float+1.,ymaxrange=0.6),
+    BaseObject("massZ1",xmin=40.0,xmax=120.0,binwidth=1.0,xlabel="m_{Z1} [GeV]",ylabel=str("%.5f" % 0.5)+" [GeV]",xminrange=40.0,xmaxrange=120.0,ymaxrange=0.6),
     BaseObject("massZ2",xmin=mass_float-1.,xmax=mass_float+1.,binwidth=0.02,xlabel="m_{Z2} [GeV]",ylabel=str("%.5f" % 0.5)+" [GeV]",xminrange=mass_float-1.,xmaxrange=mass_float+1.,ymaxrange=0.6),
     BaseObject("eta3",xmin=-2.8,xmax=2.8,binwidth=0.2,xlabel="#eta_{3}",ylabel=str("%.5f" % 0.2),xminrange=-2.8,xmaxrange=2.8,ymaxrange=0.07),
     BaseObject("eta4",xmin=-2.8,xmax=2.8,binwidth=0.2,xlabel="#eta_{4}",ylabel=str("%.5f" % 0.2),xminrange=-2.8,xmaxrange=2.8,ymaxrange=0.07),

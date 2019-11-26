@@ -38,7 +38,6 @@ void ZZD_lhe(TString powhegLheFile = "cmsgrid_final.lhe", TString outputFile = "
     // These are turned into real ints using sed from a different script
     // Feel free to replace these with values you want.
     // They are only used for naming purposes.
-    int zdmass = 20;
     int lhaid = 306000;
 
     strtemp.assign(outputFile.Data());
