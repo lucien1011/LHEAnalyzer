@@ -13,6 +13,7 @@ hist_cfgs = [
                             "H-To-ALP-ALP_M"+str(m),
                             inputPath="/home/lucien/AnalysisCode/Higgs/ALP/genproductions/bin/MadGraph5_aMCatNLO/workDir_acc_study_hTOalpalp_eps2e-2_mZd%s/UnpackTarball/cmsgrid_final_lhe.root"%str(m),
                             x_label = str(m)+ "GeV",
+                            mass = m,
                             ) 
                             for m in [4,7,15,20,25,30,33,] ],
                     color = ROOT.kRed,
@@ -23,6 +24,7 @@ hist_cfgs = [
                             "H-To-ALP-ALP_M"+str(m),
                             inputPath="/home/lucien/AnalysisCode/Higgs/ALP/genproductions/bin/MadGraph5_aMCatNLO/workDir_acc_study_hTOalpalpTOmumu_eps2e-2_mZd%s/UnpackTarball/cmsgrid_final_lhe.root"%str(m),
                             x_label = str(m)+ "GeV",
+                            mass = m,
                             ) 
                             for m in [4,7,15,20,25,30,33,] ],
                     color = ROOT.kOrange,
@@ -33,6 +35,7 @@ hist_cfgs = [
                             "H-To-Zd-Zd_M"+str(m),
                             inputPath="/home/lucien/AnalysisCode/Higgs/ALP/genproductions/bin/MadGraph5_aMCatNLO/workDir_acc_study_hTOzpzpTO4e_eps2e-2_mZd%s/UnpackTarball/cmsgrid_final_lhe.root"%str(m),
                             x_label = str(m)+ "GeV",
+                            mass = m,
                             ) 
                             for m in [4,7,15,20,25,30,33,] ],
                     color = ROOT.kBlue,
@@ -43,6 +46,7 @@ hist_cfgs = [
                             "H-To-Zd-Zd_M"+str(m),
                             inputPath="/home/lucien/AnalysisCode/Higgs/ALP/genproductions/bin/MadGraph5_aMCatNLO/workDir_acc_study_hTOzpzpTO4mu_eps2e-2_mZd%s/UnpackTarball/cmsgrid_final_lhe.root"%str(m),
                             x_label = str(m)+ "GeV",
+                            mass = m,
                             ) 
                             for m in [4,7,15,20,25,30,33,] ],
                     color = ROOT.kViolet,
@@ -51,8 +55,10 @@ hist_cfgs = [
 treeName    = "lheEvents_tchan"
 histName    = "acc"
 n_tot_evts  = 10000.
-outputPath  = "/home/lucien/public_html/Higgs/ALP/AcceptanceStudy/2019-10-09_hToXX/plot.pdf"
+outputPath  = "/home/lucien/public_html/Higgs/ALP/AcceptanceStudy/2019-11-26_hToXX/plot.pdf"
 y_range     = [0.,1.]
+selection   = "(massZ2 > %s) && (massZ2 < %s)"
+width       = 0.02
 
 # ________________________________________________________________________________________________________________________ ||
 mkdir_p(os.path.dirname(outputPath))
@@ -64,7 +70,9 @@ for i,hist_cfg in enumerate(hist_cfgs):
     for ibin,cfg in enumerate(hist_cfg.cfgs):
         f = ROOT.TFile(cfg.inputPath,"READ")
         t = f.Get(treeName)
-        acc = float(t.GetEntries())/float(n_tot_evts)
+        #acc = float(t.GetEntries())/float(n_tot_evts)
+        selectionStr = selection%(str(cfg.mass*(1.-width)),str(cfg.mass*(1.+width)))
+        acc = float(t.GetEntries(selectionStr)/float(n_tot_evts))
         hist_cfg.hist.SetBinContent(ibin+1,acc)
         hist_cfg.hist.SetBinError(ibin+1,math.sqrt(1./float(t.GetEntries())+1./float(n_tot_evts))*acc)
         hist_cfg.hist.GetXaxis().SetBinLabel(ibin+1,cfg.x_label)
